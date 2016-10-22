@@ -1,2 +1,0 @@
-# sebastianhancock.com
-webpage
