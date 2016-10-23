@@ -6,40 +6,34 @@
     <title>Sebastian Hancock</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
     
     <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
 
-    
-    <style>
-        body {
+<style>
+    html {
+            height: 96%;
+            padding-right: 5px;
+        }
+        
+    body {
+            height: 100%;
+            width: 100%;
             margin: 0;
-            padding: 0;
             background: #f5f5f5;
             font-family: "Noto Sans", sans-serif;
             color: #3d3d3d;
-        }
-        section {
-            width: 960px;
-            margin: 20px auto;
+
         }
 
-        h1 {
-            width: 960px;
-            margin: 20px auto;
+        #name {
+            top: 30%;
+            position: relative;
+            text-align: center;
             font-family: Lora, serif;
-            letter-spacing: .04em;
-        }
-
-        h2 {
-            font-family: Lora, serif;
-            letter-spacing: .04em;
-        }
-        p {
-            font-size: 1em;
+            letter-spacing: -.01em;
+            font-size: 2em;
             line-height: 1.5em;
         }
 
@@ -61,72 +55,14 @@
             margin: 10px 0
         }
         
-        #map {
-            width: 960px;
-            height: 540px;
-            margin: 10px auto;
-            border: 2px solid #d3d3d3;
-        }
-		
-    </style>
+</style>
 </head>
 
 <body>
-
-	<h1>Spotsylvania, Virginia!</h1>
-        <div id='map'></div>
-    <section>
-        <h2>About this map</h2>
-        <p>Map Authored By Sebastian Hancock</p>
-        <p>My hometown, Spotsylvania County, Virginia, is most known for it's role in the Civil War. My property backs up to the Wilderness Battlefield, a National Military Park commemorating the Battle of the Wilderness. The Battle of Chancellorsville, where Stonewall Jackson was mortally wounded by friendly fire, was also fought in Spotsylvania. His left arm is still buried at <a href="http://www.fowb.org/index.php/ellwood-manor/">Ellwood Manor</a>.</p>
-            
-        <ul>
-            <li>See my projects on GitHub: <a href="https://github.com/sebastian-ch">Sebastian Hancock</a></li>
-            <li>Follow me on twitter: <a href="https://twitter.com/_sebastianch_">@_sebastianch_</a></li>
-            <li>Visit my <a href="http://www.sebastianhancock.com">mapping portfolio</a>.</li>
-        </ul>
-        <h3>Paragraph Response</h3>
-        <p>This paragraph does a great job of explaining the underlying socio-political thought process that goes in to all maps - printed or web. A far away zoom on Google Maps will only label places that are considered important. These places become important by the fact that they receive a label, but also they have proved themselves to deserve a label through history. Whether being a capital of a state, having a large population, or creating a reputation for itself that spreads across the country, these labeled places demonstrate how the map both influences and is influenced by worldly complexity. I've never been to Rocherster, MN, but it is <a href="https://www.google.com/maps/@45.8952806,-93.8555919,6.09z">labeled when you zoom out on Google Maps</a> and therefore I immediately think it has importance. A hometown has great importance, but the Gods eye view is seeing and comparing everything; taking into consideration all the population and the cultural influence, it makes sense that New York, NY appears on the zoomed out Google Map instead of Spotsylvania.</p>
-    </section>
-
+    <p id="name">Sebastian Hancock</p>
 
 	<script>
-        document.querySelector('h1').innerHTML = 'Spotsylvania, Virginia';
         
-        var map = document.getElementById('map');
-        map.style.background = '#4d4a9f';
-        
-        map.addEventListener('click', function() {
-            this.style.width = '400px';
-        });
-        
-        var newListItem = document.createElement('li');
-        newListItem.innerHTML = "list item 4";
-        document.querySelector('ul').appendChild(newListItem);
-        
-        console.log("hello map");
-        
-        
-        //web map
-        var options = {
-            center: [38.3256, -77.7263],
-            zoom: 12
-        }
-
-        var map = L.map('map', options);
-
-        var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(map);
-
-        var message = 'My Hometown!';
-
-        L.marker(map.getCenter())
-            .bindTooltip(message)
-            .addTo(map)
-            .openTooltip();
 
 	</script>
     
