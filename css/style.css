@@ -10,54 +10,64 @@ body {
     color: #3d3d3d;
 }
 
-#name {
+#all-container {
+    top: 30%;
     position: relative;
     text-align: center;
-    font-family: Lora, serif;
+    font-family: 'Slabo 27px', serif;
     letter-spacing: -.01em;
     font-size: 2em;
-    line-height: 1.5em;
+    line-height: 1.4em;
+    
 }
+#name {
+    display: inline;
+    
+}
+
+#nav {
+    list-style-type: none;
+    font-size: .6em;
+    margin: 0;
+    padding: 0;
+    line-height: 1em;
+}
+#nav li {
+    display: inline;
+    border-right: 3px solid #3d3d3d;
+    text-align: left;
+    padding-right: 7px;
+    padding-left: 7px;
+    
+}
+#nav li:last-child {
+    border-right: none;
+}
+#nav li:hover {
+    text-decoration: underline;
+}
+
+
 
 #virginia-container {
     text-align: center;
     align-content: center;
     position: relative;
-    top: 25.5%;            
+    top: 30%;
 }
 
 #va-svg {
-    text-align: center;
-    align-content: center;
-    position: relative;
-    top: 25.5%;
-    
-    width: 40%;
-    height: auto;
-}
-
-#va-svg:hover {
-opacity: 0.5;
+    width: 127px;
+    height: 60px;
 }
 
 #va-path {
     fill: none;
-    stroke-width: 2;
+    stroke-width: 4;
     stroke: #231f20;
     stroke-miterlimit: 10;
 }
 
-/*stroke-dasharray: 3000;
-stroke-dashoffset: 3000;
-animation: dash 5s linear forwards;
+#va-svg:hover {
+    opacity: 0.5;
 }
-
-@keyframes dash {
-to {
-stroke-dashoffset: 0;
-}
-} */
-        
-         
-        
-    
