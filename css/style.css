@@ -68,6 +68,26 @@ body {
     stroke-miterlimit: 10;
 }
 
-#va-svg:hover {
+#va-svg:hover, #nhvt-svg:hover {
     opacity: 0.5;
+}
+
+#nhvt-container {
+    padding-top: 15px;
+     text-align: center;
+    align-content: center;
+    position: relative;
+    top: 30%;
+}
+
+#nhvt-svg {
+   width: 127px;
+    height: 100px;
+}
+
+#nh, #vt {
+    fill: none;
+    stroke-width: 3;
+    stroke: #231f20;
+    stroke-miterlimit: 10;
 }
