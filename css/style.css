@@ -53,7 +53,7 @@ body {
     text-align: center;
     align-content: center;
     position: relative;
-    top: 30%;
+    top: 31%;
 }
 
 #va-svg {
@@ -72,9 +72,14 @@ body {
     opacity: 0.5;
 }
 
+#nh-g {
+    top:40px;
+    
+}
+
 #nhvt-container {
     padding-top: 15px;
-     text-align: center;
+    text-align: center;
     align-content: center;
     position: relative;
     top: 30%;
