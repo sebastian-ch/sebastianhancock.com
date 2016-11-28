@@ -17,15 +17,13 @@ var y = d.getFullYear();
 
 var theDateIs = days[weekday] + " " + months[m] + " " + day + ", " + y;
 
-//console.log(theDateIs);
+console.log(theDateIs);
 function processRequest() {
     "use strict";
 
     if (xhr.readyState === 4 && xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
-
         for (var x in response) {
-
             if (response[x].date === theDateIs) {
                 console.log(response[x].date);
                 console.log(response[x].homeTeam);
