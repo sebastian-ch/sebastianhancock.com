@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Click and Drag Example</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: "Noto Sans", sans-serif;
+            color: #3d3d3d;
+        }
+        
+        section {
+            width: 960px;
+            margin: 20px auto;
+        }
+        
+        h1 {
+            width: 960px;
+            margin: 20px auto;
+            font-family: "Lora", serif;
+            letter-spacing: .04em;
+        }
+        
+        h2 {
+            font-family: "Lora", serif;
+            letter-spacing: .04em;
+        }
+        
+        p {
+            font-size: 1em;
+            line-height: 1.5em;
+        }
+        
+        a {
+            color: #005daa;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin: 10px 0
+        }
+        
+        #map {
+            width: 960px;
+            height: 540px;
+            margin: 10px auto;
+            border: 2px solid #d3d3d3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>How far is your click from the Red Iguana?</h1>
+
+    <div id='map'></div>
+
+    <section>
+
+        <p>When you click on this map, it will display the distance (in km) to the Red Iguana. You can also drag the popup and the distance will recalculate. If you click somewhere else on the map, the original marker will disappear and a new one will show up! </p>
+
+    </section>
+
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <script>
+        var options = {
+            center: [40.74, -110.61],
+            zoom: 7
+        }
+
+        var map = L.map('map', options);
+
+        L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var redIguana = L.latLng(40.7718, -111.9124);
+
+        L.marker(redIguana, {
+            icon: L.icon({
+                iconUrl: 'red_iguana.png',
+                iconSize: [40, 36]
+            })
+        }).addTo(map);
+        
+        //declared the group outside the function so I can clear it on each click
+        var clickMarkers = L.layerGroup();
+
+        //when you click the map, do this function:
+        map.on('click', function (e) {
+
+            //remove existing marker at the beginning
+            clickMarkers.clearLayers();
+
+            //latlng of click
+            var clickLoc = e.latlng;
+            
+            //calculate distance from click to Red Iguana in km
+            var distToRedIguana = (clickLoc.distanceTo(redIguana) / 1000).toFixed(2);
+
+            //what goes in the popup
+            var popupContent = "<b>Distance from Red Iguana: </b>" + distToRedIguana + " km";
+
+            //create marker on click at click location
+            //adds it to the clickMarkers layerGroup
+            var mark = L.marker(clickLoc, {
+                draggable: true
+            }).addTo(clickMarkers);
+            
+            //adds layerGroup to map
+            clickMarkers.addTo(map);
+
+            //though there's only one marker(layer), I iterate
+            //through each layer in the group and bind the popup
+            //and 'dragend' event function to it.
+            clickMarkers.eachLayer(function (layer) {
+
+                layer.bindPopup(popupContent).openPopup()
+                    .on('dragend', function (e) {
+                    
+                        var newDist = (this.getLatLng().distanceTo(redIguana) / 1000).toFixed(2);
+                        this.setPopupContent("<b>Distance from Red Iguana: </b>" + newDist + " km").openPopup();
+                    });
+            });
+            
+        });
+    </script>
+
+</body>
+
+</html>
