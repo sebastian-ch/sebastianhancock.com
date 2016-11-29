@@ -12,6 +12,7 @@ body {
 
 #all {
     top: 5%;
+    
     position: relative;
     text-align: center;
     font-family: 'Slabo 27px', serif;
@@ -50,9 +51,6 @@ a:hover {
 #nav li:last-child {
     border-right: none;
 }
-/*#nav li:hover {
-    text-decoration: underline;
-} */
 
 #examples {
     list-style-type: none;

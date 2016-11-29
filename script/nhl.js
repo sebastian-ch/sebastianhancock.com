@@ -23,13 +23,26 @@ function processRequest() {
 
     if (xhr.readyState === 4 && xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
+        var games = [];
         for (var x in response) {
             if (response[x].date === theDateIs) {
+                games.push(response[x]);
+                
                 console.log(response[x].date);
                 console.log(response[x].homeTeam);
                 console.log(response[x].awayTeam);
                 console.log("---");
             }
         }
+        console.log(games.length);
+        
+        for(var y in games) {
+            var newDiv = document.createElement("div");
+            var content = document.createTextNode("The " + games[y].awayTeam + " at the " + games[y].homeTeam);
+            newDiv.appendChild(content);
+            var currentDiv = document.getElementById("game1");
+            document.body.insertBefore(newDiv, currentDiv);
+        }
+    
     }
 }
