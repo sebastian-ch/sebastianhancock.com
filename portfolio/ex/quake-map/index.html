@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lab 08 Starter</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <script src="/script/jquery-3.1.1.min.js"></script>
+    <script src="/script/quake-map.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        
+        header {
+            padding: 6px 10%;
+        }
+        
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Map Title</h1>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+      
+    </footer>
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+
+    <!--where 'plants' comes from -->
+  <script src="power-plants.js"></script>
+
+    <script>
+        //initialize map
+        var map = L.map('map', {
+            center: [36, -94],
+            zoom: 2,
+        });
+
+        //add basemap
+        var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        });
+
+        tiles.addTo(map);
+        
+        var earthquakes = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson";
+        
+       function addDataToMap(data, map) {
+            var dataLayer = L.geoJson(data, {
+                onEachFeature: function (feature, layer) {
+                    var popupText = "Mag: " + feature.properties.mag;
+                    layer.bindPopup(popupText); }
+                
+            });
+            dataLayer.addTo(map);
+        }
+        $.getJSON("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson", function(data) {
+            addDataToMap(data, map); 
+        });
+        
+        //custom sort method
+        /*  plants.features.sort(function (a, b) {
+            return b.properties.capacity_mw - a.properties.capacity_mw;
+        });
+        
+        //adds geoJSON
+        L.geoJson(plants, {
+            pointToLayer: function (feature, latlng) {
+                //creates circleMarkers for each point
+                return L.circleMarker(latlng, {
+                    color: 'blue',
+                    weight: 1,
+                    fillColor: 'blue',
+                    fillOpacity: .8,
+                    radius: getRadius(feature.properties.capacity_mw)
+                });
+            },
+
+
+            //filter by Hydro or Coal
+            filter: function (feature, layer) {
+                if (feature.properties.fuel_source.Hydro || feature.properties.fuel_source.Coal) {
+                    return feature;
+                }
+            },
+            
+            //adds mouseover and mouseout functions to each circle
+            onEachFeature: function (feature, layer) {
+
+                layer.on('mouseover', function () {
+                    layer.setStyle({
+                        fillColor: 'yellow'
+                    });
+                });
+
+                layer.on('mouseout', function () {
+                    layer.setStyle({
+                        fillColor: 'blue'
+                    });
+                });
+
+                layer.bindPopup("<b>" + feature.properties.plant_name + "</b><br>" + feature.properties.capacity_mw.toLocaleString() + " mw<br>" + getFuelSource(feature.properties.fuel_source));
+
+                //sets style for if the fuel source is Coal
+                if (feature.properties.fuel_source.Coal){
+                    layer.setStyle({
+                        color: 'red',
+                        fillColor: 'red'
+                        });
+                    //changes the mouseout to return to red for Coal
+                    layer.on('mouseout', function (){
+                        layer.setStyle({
+                            color: 'red',
+                            fillColor: 'red'
+                        });
+                    });
+                }
+            }
+        }).addTo(map);
+
+        //grabs all fuel sources in the fuel_source property
+        //and returns them in string form for the popup.
+        function getFuelSource(feat) {
+            //empty arrays to start
+            var sources = [];
+            var amounts = [];
+            //iterates through all fuel_sources
+            for (var x in feat) {
+                
+                feat[x] = feat[x].toLocaleString();
+                //adds the fuel source to sources array
+                sources.push(x);
+                //adds the output amount to the amounts array
+                amounts.push(feat[x]);
+            };
+
+            //if there's more than one source, return this string
+            //else, just return the one source
+            if (sources.length > 1) {
+                return "<b>Fuel Sources</b><br>" + sources[0] + ": " + amounts[0] + " mw" + "<br>" + sources[1] + ": " + amounts[1] + " mw";
+            } else {
+                return "<b>Fuel Sources</b><br>" + sources[0] + ": " + amounts[0] + " mw";
+            }
+        }
+
+        //returns the radius instead of area
+        function getRadius(area) {
+            var radius = Math.sqrt(area / Math.PI);
+            return radius * .6;
+        } */
+
+    </script>
+
+</body>
+
+</html>
