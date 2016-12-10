@@ -1,19 +1,60 @@
-/*function AJAX_JSON_Req(url) {
-    
-    var AJAX_req = new XMLHttpRequest();
-    AJAX_req.open("GET", url, true);
-    AJAX_req.setRequestHeader("Content-type", "application/json");
-    AJAX_req.setRequestHeader('Access-Control-Allow-Origin', '*');
-    AJAX_req.setRequestHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-    AJAX_req.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Content-Range, Content-Disposition, Content-Description');
-    
-    AJAX_req.onreadystatechange = function() {
-        if( AJAX_req.readyState == 4 && AJAX_req.status == 200 ) {
-            var response = JSON.parse(AJAX_req.responseText);
-            document.write( response.name);
-        }
-    }
-    AJAX_req.send();
+var map = L.map('map', {
+    center: [34, -13],
+    zoom: 2.5,
+});
+
+
+var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+    subdomains: 'abcd',
+    maxZoom: 18
+});
+
+
+tiles.addTo(map);
+
+function addDataToMap(data, map) {
+
+    /*  data.features.sort(function (a, b) {
+          return b.properties.mag - a.properties.mag;
+      }); */
+
+    var dataLayer = L.geoJson(data, {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, {
+                color: 'orange',
+                weight: 1,
+                stroke: 2,
+                //fillOpacity: .8,
+                radius: feature.properties.mag * 6
+            });
+        },
+        onEachFeature: function (feature, layer) {
+            var popupText = "Mag: " + feature.properties.mag;
+            layer.bindPopup(popupText);
+        },
+
+
+    });
+    dataLayer.addTo(map);
 }
 
-AJAX_JSON_Req('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson');  */
+
+
+$.getJSON("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson", function (data) {
+    addDataToMap(data, map);
+});
+
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info');
+    this.update();
+    return this._div;
+}
+
+info.update = function () {
+    this._div.innerHTML = 'This map shows the earthquakes above a 4.5 magnitude that occurred today';
+};
+
+info.addTo(map);
