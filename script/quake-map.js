@@ -41,7 +41,7 @@ function addDataToMap(data, map) {
 
 
 
-$.getJSON("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson", function (data) {
+$.getJSON("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson", function (data) {
     addDataToMap(data, map);
 });
 
