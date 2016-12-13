@@ -54,7 +54,7 @@ info.onAdd = function (map) {
 }
 
 info.update = function () {
-    this._div.innerHTML = 'This map shows the earthquakes above a 4.5 magnitude that occurred today';
+    this._div.innerHTML = 'This map shows the earthquakes above a 1.0 magnitude that occurred today';
 };
 
 info.addTo(map);
