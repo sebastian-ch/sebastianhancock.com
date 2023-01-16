@@ -12,6 +12,9 @@
         line-height: 1.5rem;
     }
 }
+h1 {
+    line-height: 2.3rem;
+}
 
 ul {
     margin: 0;
