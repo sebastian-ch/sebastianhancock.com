@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+
+@supports (font-variation-settings: normal) {
+    html {
+        font-family: 'Mulish', sans-serif;
+        background-color: #111423;
+        color: whitesmoke;
+        padding: 5rem;
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+    }
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    list-style-position: inside;
+}
+
+a {
+    color: whitesmoke
+}
+
+.section {
+    font-size: .95rem
+}
